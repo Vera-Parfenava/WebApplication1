@@ -1,0 +1,48 @@
+﻿
+@model IEnumerable<WebApplication1.Models.GuestsView>
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Подробнее</title>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>№</th>
+                <th>Фамилия</th>
+                <th>Имя</th>
+                <th>Отчество</th>
+                <th>Возраст</th>
+                <th>Со стороны</th>
+                <th>Описание</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                if (item.Id == ViewBag.Id)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.SurName</td>
+                        <td>@item.FirstName</td>
+                        <td>@item.Partronymic</td>
+                        <td>@item.Age</td>
+                        <td>@item.Side</td>
+                        <td>@item.Relation</td>
+                    </tr>
+                }
+
+            }
+        </tbody>
+    </table>
+    <p>
+        <a href="/Home/Guests">Назад</a>
+    </p>
+</body>
+</html>
