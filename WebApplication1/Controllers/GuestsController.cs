@@ -53,6 +53,10 @@ namespace WebApplication1.Controllers
         [Route("edit/{id?}")]
         public IActionResult Edit(int? id)
         {
+            if (id is null)
+            {
+               return View(new GuestsViewModel());
+            }
 
             var guest = _GuestsData.GetById(id.Value);
             if (guest is null)
@@ -90,12 +94,20 @@ namespace WebApplication1.Controllers
                 Side = model.Side
             };
 
-            _GuestsData.UpDate(guest);
+            if (guest.Id == 0)
+            {
+                _GuestsData.AddNew(guest);
+            }
+            else
+            {
+                _GuestsData.UpDate(guest);
+            }
 
             return RedirectToAction(nameof(Index));
         }
         #endregion
 
+        #region Delete
         ///<summary>
         ///Delete a guest
         ///</summary>
@@ -131,6 +143,11 @@ namespace WebApplication1.Controllers
             _GuestsData.Delete(id);
             return RedirectToAction(nameof(Index));
         }
+        #endregion
+
+        [Route("create")]
+        public IActionResult AddNew() => View("Edit", new GuestsViewModel());
+
     }
 }
 
