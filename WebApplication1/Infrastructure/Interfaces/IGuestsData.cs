@@ -9,7 +9,7 @@ namespace WebApplication1.Interfaces
     /// <summary>
     /// Interface for a work with guests
     /// </summary>
-    interface IGuestsData
+   public interface IGuestsData
     {
         ///<summary>
         ///Get the list of guests
