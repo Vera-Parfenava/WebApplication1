@@ -1,4 +1,6 @@
-﻿<div class="container">
+﻿@model IEnumerable<GuestsView>
+
+<div class="container">
     <h3> Cписок гостей </h3>
     <table class="table">
         <thead>
@@ -9,20 +11,24 @@
                 <th>Отчество</th>
                 <th>Возраст</th>
                 <th>Описание</th>
+                <th>Ред-ние</th>
+                <th>Удаление</th>
+
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model)
-            {
-            <tr>
-                <td>@item.Id</td>
-                <td>@item.SurName</td>
-                <td>@item.FirstName</td>
-                <td>@item.Partronymic</td>
-                <td>@item.Age</td>
-                <td>@Html.ActionLink("Детали","Details", new { id = item.Id })</td>
-            </tr>
-            }
+            {<tr>
+    <td>@item.Id</td>
+    <td>@item.SurName</td>
+    <td>@item.FirstName</td>
+    <td>@item.Partronymic</td>
+    <td>@item.Age</td>
+    <td>@Html.ActionLink("Детали", "Details", new { id = item.Id })</td>
+    <td>@Html.ActionLink("Изменить", "Edit", new { id = item.Id })</td>
+    <td>@Html.ActionLink("Удалить", "Delete", new { id = item.Id })</td>
+</tr>
+             }
         </tbody>
     </table>
     <p>

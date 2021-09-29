@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApplication1.Models;
+using WebApplication1.ViewModel;
+
 
 namespace WebApplication1.Interfaces
 {
@@ -34,13 +36,20 @@ namespace WebApplication1.Interfaces
         ///</summary>
         ///<param name="model">Id</param>
         ///<returns></returns>
-        void AddNew(GuestsView model);
+        int AddNew(GuestsView model);
 
         ///<summary>
         ///Delete one
         ///</summary>
         ///<param name="id">Id</param>
         ///<returns></returns>
-        void Delete(int id);
+        bool Delete(int id);
+
+        ///<summary>
+        ///Update data
+        ///</summary>
+        ///<param name="model">Id</param>
+        ///<returns></returns>
+        void UpDate(GuestsView model);
     }
 }

@@ -4,6 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebApplication1.Interfaces;
 using WebApplication1.Models;
+using WebApplication1.ViewModel;
+using WebApplication1.Data;
+using Microsoft.Extensions.Logging;
+
 
 
 namespace WebApplication1.Implementation
@@ -14,70 +18,60 @@ namespace WebApplication1.Implementation
     /// </summary>
     public class InMemoryGuestsData: IGuestsData
     {
-        private readonly List<GuestsView> _guestsView;
+        private readonly ILogger<InMemoryGuestsData> _Logger;
+        private int _CurrentMaxId;
 
-        public InMemoryGuestsData()
+        public InMemoryGuestsData(ILogger<InMemoryGuestsData> Logger)
         {
-            _guestsView = new List<GuestsView>(3)
-            {
-                new GuestsView()
-                {
-                    Id = 1,
-                    FirstName = "Иван",
-                    SurName = "Туранков",
-                    Partronymic = "Андреевич",
-                    Age = 31,
-                    Relation = "BIM-мастер",
-                    Side = "BIM"
-                },
-                new GuestsView()
-                {
-                    Id = 2,
-                    FirstName = "Владислав",
-                    SurName = "Попков",
-                    Partronymic = "Эдуардович",
-                    Age = 24,
-                    Relation = "Программист",
-                    Side = "WEB"
-                },
-                new GuestsView()
-                {
-                    Id = 3,
-                    FirstName = "Вера",
-                    SurName = "Ярешко",
-                    Partronymic = "Вадимовна",
-                    Age = 26,
-                    Relation = "Руководитель",
-                    Side = "IT"
-                }
-            };
+            _Logger = Logger;
+            _CurrentMaxId = TestData.GuestsViews.Max(e => e.Id);
         }
 
         public IEnumerable<GuestsView> GetAll()
         {
-            return _guestsView;
+            return TestData.GuestsViews;
         }
 
         public GuestsView GetById(int id)
             {
-                return _guestsView.FirstOrDefault(e => e.Id.Equals(id));
+                return TestData.GuestsViews.FirstOrDefault(e => e.Id.Equals(id));
             }
         public void Commit()
         {
 
         }
-        public void AddNew (GuestsView model)
+        public int AddNew (GuestsView model)
         {
-            model.Id = _guestsView.Max(e => e.Id) + 1;
-            _guestsView.Add(model);
+            if (model is null) throw new ArgumentNullException(nameof(model));
+            if (TestData.GuestsViews.Contains(model)) return model.Id;
+
+            model.Id = _CurrentMaxId + 1;
+            TestData.GuestsViews.Add(model);
+
+            return model.Id;
         }
-        public void Delete(int id)
+        public void UpDate(GuestsView model)
         {
-            var guests = GetById(id);
-            if (guests != null)
-            {
-                _guestsView.Remove(guests);
-            }
+            if (model is null) throw new ArgumentNullException(nameof(model));
+            if (TestData.GuestsViews.Contains(model)) return;
+
+            var db_guests = GetById(model.Id);
+            if (db_guests is null) return;
+            db_guests.FirstName = model.FirstName;
+            db_guests.SurName = model.SurName;
+            db_guests.Age = model.Age;
+            db_guests.Partronymic = model.Partronymic;
+            db_guests.Relation = model.Relation;
+            db_guests.Side = model.Side;
+        }
+
+
+        public bool Delete(int id)
+        {
+            var db_guests = GetById(id);
+            if (db_guests is null) return false;
+            TestData.GuestsViews.Remove(db_guests);
+            return true;
         }
     }
 }

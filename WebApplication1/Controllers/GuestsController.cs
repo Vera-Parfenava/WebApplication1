@@ -7,7 +7,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebApplication1.Data;
 using WebApplication1.Interfaces;
+using WebApplication1.ViewModel;
 using WebApplication1.Models;
+
+
+
 
 
 
@@ -16,14 +20,14 @@ namespace WebApplication1.Controllers
     [Route("guests")]
     public class GuestsController : Controller
     {
-        private readonly IGuestsData _guestsData;
-        private readonly ILogger<GuestsController> _logger;
-        public GuestsController(IGuestsData guestsData, ILogger<GuestsController> logger)
+        private readonly IGuestsData _GuestsData;
+        private readonly ILogger<GuestsController> _Logger;
+        public GuestsController(IGuestsData GuestsData, ILogger<GuestsController> Logger)
         {
-            _guestsData = guestsData;
-            _logger = logger;
+            _GuestsData = GuestsData;
+            _Logger = Logger;
         }
-        public IActionResult Index() => View(_guestsData.GetAll());
+        public IActionResult Index() => View(_GuestsData.GetAll());
 
         /// <summary>
         /// Details about guests
@@ -33,62 +37,98 @@ namespace WebApplication1.Controllers
         [Route("{id}")]
         public IActionResult Details(int id)
         {
-            var guest = _guestsData.GetById(id);
+            var guest = _GuestsData.GetById(id);
             if (guest is null)
-                {
+            {
                 return NotFound();
-                }
+            }
             return View(guest);
         }
+        #region Edit
         ///<summary>
-        ///Add and edit a guest
+        ///Edit a guest
         ///</summary>
         ///<param name= "id"></param>
         ///<returns></returns>
         [Route("edit/{id?}")]
         public IActionResult Edit(int? id)
         {
-            GuestsView model;
-            if(id.HasValue)
+
+            var guest = _GuestsData.GetById(id.Value);
+            if (guest is null)
             {
-                model = _guestsData.GetById(id.Value);
-                if (model is null)
-                {
-                    return NotFound();
-                }
-                
+                return NotFound();
             }
-            else
+
+            var model = new GuestsViewModel()
             {
-                model = new GuestsView();
-            }
+                FirstName = guest.FirstName,
+                Id = guest.Id,
+                SurName = guest.SurName,
+                Partronymic = guest.Partronymic,
+                Age = guest.Age,
+                Relation = guest.Relation,
+                Side = guest.Side
+            };
+
             return View(model);
-           
+
         }
 
         [HttpPost]
         [Route("edit/{id?}")]
-        public IActionResult Edit(GuestsView model)
+        public IActionResult Edit(GuestsViewModel model)
         {
-            if (model.Id > 0)
+            var guest = new GuestsView()
             {
-                var dbItem = _guestsData.GetById(model.Id);
-                if (dbItem is null)
-                {
-                    return NotFound();
-                }
-                dbItem.FirstName = model.FirstName;
-                dbItem.SurName = model.SurName;
-                dbItem.Age = model.Age;
-                dbItem.Partronymic = model.Partronymic;
-                dbItem.Relation = model.Relation;
-                dbItem.Side = model.Side;
-            }
-            else
+                FirstName = model.FirstName,
+                Id = model.Id,
+                SurName = model.SurName,
+                Partronymic = model.Partronymic,
+                Age = model.Age,
+                Relation = model.Relation,
+                Side = model.Side
+            };
+
+            _GuestsData.UpDate(guest);
+
+            return RedirectToAction(nameof(Index));
+        }
+        #endregion
+
+        ///<summary>
+        ///Delete a guest
+        ///</summary>
+        ///<param name= "id"></param>
+        ///<returns></returns>
+        [Route("del/{id?}")]
+        public IActionResult Delete(int id)
+        {
+            if (id < 0) return BadRequest();
+
+            var guest = _GuestsData.GetById(id);
+            //if (guest is null)
+            //{
+            //    return NotFound();
+            //}
+            return View(
+            new GuestsViewModel()
             {
-                _guestsData.AddNew(model);
-            }
-            _guestsData.Commit();
+                Id = guest.Id,
+                SurName = guest.SurName,
+                FirstName = guest.FirstName,
+                Partronymic = guest.Partronymic,
+                Age = guest.Age,
+                Relation = guest.Relation,
+                Side = guest.Side
+            });
+        }
+
+        [HttpPost]
+        [Route("del/{id?}")]
+        public IActionResult DeleteConfirmed(int id)
+        {
+            _GuestsData.Delete(id);
             return RedirectToAction(nameof(Index));
         }
     }
