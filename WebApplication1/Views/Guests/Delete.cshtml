@@ -1,0 +1,62 @@
+﻿@model WebApplication1.ViewModel.GuestsViewModel
+
+@{
+    ViewData["Title"] = "Удаление";
+}
+<div class="container">
+    <h1>Данные</h1>
+
+    <h3>Вы уверены, что хотите уддалить данные о госте?</h3>
+    <div>
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Id)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Id)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.FirstName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.FirstName)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.SurName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.SurName)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Partronymic)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Partronymic)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Age)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Age)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Side)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Side)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Relation)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Relation)
+            </dd>
+        </dl>
+
+        <form asp-action="DeleteConfirmed" asp-route-id="@Model.Id">
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            <a asp-action="Index">Назад</a>
+        </form>
+    </div>
+
+</div>

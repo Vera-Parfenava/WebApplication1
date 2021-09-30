@@ -8,6 +8,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApplication1.Interfaces;
+using WebApplication1.Implementation;
+
 
 namespace WebApplication1
 {
@@ -33,6 +36,8 @@ namespace WebApplication1
         {
             //Add  a service for controller
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            //Add a dependency extension
+            services.AddSingleton<IGuestsData, InMemoryGuestsData>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,6 +51,8 @@ namespace WebApplication1
             app.UseStaticFiles(); 
             app.UseRouting();
 
+            app.UseWelcomePage("/welcome");
+
             app.UseEndpoints(endpoints =>
             {
                 //Make the configuration of the infrastructure MVC
@@ -54,5 +61,6 @@ namespace WebApplication1
                     "{controller=Home}/{action=Index}/{id?}");
             });
         }
+        
     }
 }

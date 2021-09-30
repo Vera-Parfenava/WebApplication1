@@ -1,0 +1,61 @@
+﻿@model WebApplication1.Models.GuestsView
+
+@*@{
+    ViewData["Title"] = "Details";
+}*@
+
+
+
+<div class="container">
+    <h1>Гость</h1>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.SurName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.SurName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Partronymic)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Partronymic)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Age)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Age)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Side)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Side)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Relation)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Relation)
+        </dd>
+    </dl>
+</div>
+<div class="container">
+    <a asp-action="Index">Назад</a>
+    <a>@Html.ActionLink("Удалить", "Delete", new { id = Model.Id })</a>
+    <a>@Html.ActionLink("/Ред-ь", "Edit", new { id = Model.Id })</a>
+</div>
