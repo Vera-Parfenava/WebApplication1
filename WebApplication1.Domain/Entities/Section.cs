@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using WebApplication1.Domain.Entities.Base;
 using WebApplication1.Domain.Entities.Base.Interfaces;
 
-namespace WebApplication1.Domain.Entities.Base
+namespace WebApplication1.Domain.Entities
 {
-    class Section : NamedEntity, IOrderedEntity
+    public class Section : NamedEntity, IOrderedEntity
     {
         public int Order { get; set; }
         public int? ParentId { get; set; }
