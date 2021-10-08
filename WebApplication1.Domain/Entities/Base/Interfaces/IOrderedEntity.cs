@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace WebApplication1.Domain.Entities.Base.Interfaces
 {
-    public interface IEntity //Cущность
+    interface IOrderedEntity : IEntity //Упорядоченная сущность
     {
-        int Id { get; }
+        public interface IOrderedEntity 
+        {
+            int Order { get; }
+        }
     }
-    
 }

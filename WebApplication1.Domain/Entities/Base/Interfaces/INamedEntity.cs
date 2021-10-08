@@ -6,9 +6,12 @@ using System.Threading.Tasks;
 
 namespace WebApplication1.Domain.Entities.Base.Interfaces
 {
-    public interface IEntity //Cущность
+    interface INamedEntity : IEntity //Именованная сущность
     {
-        int Id { get; }
+        public interface INamedEntity 
+        {
+            string Name { get; }
+        }
+
     }
-    
 }
