@@ -46,6 +46,7 @@ namespace WebApplication1
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseBrowserLink();
             }
 
            //app.UseStatusCodePagesWithReExecute("/Home/Status/{0}");
