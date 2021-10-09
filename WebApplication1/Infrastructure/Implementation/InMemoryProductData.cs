@@ -14,7 +14,7 @@ namespace WebApplication1.Infrastructure
     public class InMemoryProductData: IProductData
     {
         public IEnumerable<Section> GetSections() => TestData.Sections;
-        public IEnumerable<BRand> GetBrands() => TestData.Brands;
+        public IEnumerable<Brand> GetBrands() => TestData.Brands;
 
     }
 }

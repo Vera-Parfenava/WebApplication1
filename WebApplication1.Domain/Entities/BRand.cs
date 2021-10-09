@@ -9,7 +9,7 @@ using WebApplication1.Domain.Entities.Base.Interfaces;
 
 namespace WebApplication1.Domain.Entities
 {
-    public class BRand: NamedEntity, IOrderedEntity
+    public class Brand: NamedEntity, IOrderedEntity
     {
         public int Order { get; set; }
     }

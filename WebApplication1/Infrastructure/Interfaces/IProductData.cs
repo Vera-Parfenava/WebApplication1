@@ -9,6 +9,6 @@ namespace WebApplication1.Infrastructure.Implementation
     public interface IProductData
     {
         IEnumerable<Section> GetSections();
-        IEnumerable<BRand> GetBrands();
+        IEnumerable<Brand> GetBrands();
     }
 }

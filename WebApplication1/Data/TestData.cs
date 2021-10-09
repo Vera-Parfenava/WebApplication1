@@ -89,15 +89,15 @@ namespace WebApplication1.Data
             new Section{Id = 29, Name = "Сумки", Order = 8},
             new Section{Id = 30, Name = "Обувь", Order = 9},
         };
-        public static IEnumerable<BRand> Brands { get; } = new[]
+        public static IEnumerable<Brand> Brands { get; } = new[]
         {
-             new BRand{Id = 1, Name = "Acne", Order = 0},
-             new BRand{Id = 2, Name = "Grune Erd", Order = 1},
-             new BRand{Id = 3, Name = "Albiro", Order = 2},
-             new BRand{Id = 4, Name = "Ronhill", Order = 3},
-             new BRand{Id = 5, Name = "Oddmolly", Order = 4},
-             new BRand{Id = 6, Name = "Boudestijn", Order = 5},
-             new BRand{Id = 7, Name = "Rosch creative culture", Order = 6},
+             new Brand{Id = 1, Name = "Acne", Order = 0},
+             new Brand{Id = 2, Name = "Grune Erd", Order = 1},
+             new Brand{Id = 3, Name = "Albiro", Order = 2},
+             new Brand{Id = 4, Name = "Ronhill", Order = 3},
+             new Brand{Id = 5, Name = "Oddmolly", Order = 4},
+             new Brand{Id = 6, Name = "Boudestijn", Order = 5},
+             new Brand{Id = 7, Name = "Rosch creative culture", Order = 6},
         };
     }
 }
