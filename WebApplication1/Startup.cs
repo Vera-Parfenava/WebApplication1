@@ -9,8 +9,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApplication1.Interfaces;
+using WebApplication1.Infrastructure.Implementation;
 using WebApplication1.Implementation;
-
+using WebApplication1.Infrastructure;
 
 namespace WebApplication1
 {
@@ -34,6 +35,9 @@ namespace WebApplication1
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IGuestsData, InMemoryGuestsData>();
+            services.AddSingleton<IProductData, InMemoryProductData>();
+
             //Add  a service for controller
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             //Add a dependency extension
