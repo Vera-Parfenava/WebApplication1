@@ -12,6 +12,8 @@ using WebApplication1.Interfaces;
 using WebApplication1.Infrastructure.Implementation;
 using WebApplication1.Implementation;
 using WebApplication1.Infrastructure;
+using WebApplication1.DAL;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebApplication1
 {
@@ -35,6 +37,11 @@ namespace WebApplication1
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<WebStoreDB>(opt => 
+                opt.UseSqlServer(Configuration.GetConnectionString("SqlServer")));
+
+
+
             services.AddSingleton<IGuestsData, InMemoryGuestsData>();
             services.AddSingleton<IProductData, InMemoryProductData>();
 
