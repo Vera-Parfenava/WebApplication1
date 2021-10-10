@@ -10,10 +10,15 @@ namespace WebApplication1.Controllers
         public IActionResult Index() => View();
         public IActionResult About() => View();
         public IActionResult Catalog() => View();
-        public IActionResult Status(string Code) => Content($"Status code - {Code}.");
+        public IActionResult ContactUs() => View();
 
-
-
-
+        public IActionResult Status(string id)
+        {
+            switch (id)
+            {
+                default: return Content($"Status --{id}");
+                case "404": return View("Error404");
+            }
+        }
     }
 }

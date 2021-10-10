@@ -53,9 +53,10 @@ namespace WebApplication1
                 app.UseBrowserLink();
             }
 
-           //app.UseStatusCodePagesWithReExecute("/Home/Status/{0}");
+           app.UseStatusCodePagesWithReExecute("/Home/status/{0}");
 
             //Add an extension for static files, since appsettings.json is a static file
+
             app.UseStaticFiles(); 
             app.UseRouting();
 
