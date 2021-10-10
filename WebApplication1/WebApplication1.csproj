@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\WebApplication1.DAL\WebApplication1.DAL.csproj" />
     <ProjectReference Include="..\WebApplication1.Domain\WebApplication1.Domain.csproj" />
   </ItemGroup>
 
