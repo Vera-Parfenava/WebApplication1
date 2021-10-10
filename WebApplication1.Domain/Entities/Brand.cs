@@ -8,16 +8,15 @@ using System.Threading.Tasks;
 using WebApplication1.Domain.Entities.Base;
 using WebApplication1.Domain.Entities.Base.Interfaces;
 
+
+
 namespace WebApplication1.Domain.Entities
 {
-    [Index(nameof(Name),IsUnique = true)]
-    public class Section : NamedEntity, IOrderedEntity
+    [Index(nameof(Name),/*nameof(order)*/,IsUnique = true]
+    //[Table("Brands")
+    public class Brand: NamedEntity, IOrderedEntity
     {
+        //[Column("BrandOrder")]
         public int Order { get; set; }
-        public int? ParentId { get; set; }
-
-        [ForeignKey(nameof(ParentId))]
-        public Section Parent { get; set; }
-        public ICollection<Product> Products { get; set; }
     }
 }
