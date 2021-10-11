@@ -30,14 +30,20 @@ namespace WebApplication1.Data
 
             if(pending_migrations.Any())
             {
-                _Logger.LogInformation("Применение миграций {0}", string.Join(",", pending_migrations));
+                _Logger.LogInformation($"Применение миграций: {0}", string.Join(",", pending_migrations));
                 await _db.Database.MigrateAsync();
-            } 
+            }
+
+            await InitializeProductAsync();
         }
 
         private async Task InitializeProductAsync()
         {
-
+            if(_db.Sections.Any())
+            {
+                _Logger.LogInformation("Инициализация БД информацией о товарах не требуется");
+                return;
+            }
 
             _Logger.LogInformation("Запись секций...");
             await using (await _db.Database.BeginTransactionAsync())

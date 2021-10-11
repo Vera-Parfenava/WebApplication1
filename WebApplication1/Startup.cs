@@ -9,6 +9,7 @@ using WebApplication1.Infrastructure.InMemory;
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.DAL.Context;
 using WebApplication1.Data;
+using WebApplication1.Infrastructure.InSQL;
 
 namespace WebApplication1
 {
@@ -38,7 +39,8 @@ namespace WebApplication1
             services.AddTransient<WebApp1DBInitializer>();
 
             services.AddSingleton<IGuestsData, InMemoryGuestsData>();
-            services.AddSingleton<IProductData, InMemoryProductData>();
+            //services.AddSingleton<IProductData, InMemoryProductData>();
+            services.AddScoped<IProductData, SqlProductData>();
 
             //Add  a service for controller
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
