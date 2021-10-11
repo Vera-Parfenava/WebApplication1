@@ -12,7 +12,7 @@ using WebApplication1.Domain.Entities.Base.Interfaces;
 
 namespace WebApplication1.Domain.Entities
 {
-    [Index(nameof(Name),/*nameof(order)*/,IsUnique = true]
+    [Index(nameof(Name),/*nameof(order),*/IsUnique = true)]
     //[Table("Brands")
     public class Brand: NamedEntity, IOrderedEntity
     {

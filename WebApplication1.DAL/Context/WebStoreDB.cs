@@ -3,7 +3,7 @@ using System;
 using WebApplication1.Domain.Entities;
 
 
-namespace WebApplication1.DAL
+namespace WebApplication1.DAL.Context
 {
     public class WebStoreDB: DbContext
     {
