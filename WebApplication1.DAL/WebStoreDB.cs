@@ -2,7 +2,6 @@
 using System;
 using WebApplication1.Domain.Entities;
 
-us
 
 namespace WebApplication1.DAL
 {
