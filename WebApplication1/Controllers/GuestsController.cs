@@ -38,6 +38,7 @@ namespace WebApplication1.Controllers
         public IActionResult Details(int id)
         {
             var guest = _GuestsData.GetById(id);
+            //if(ReferenceEquals(employee, null))
             if (guest is null)
             {
                 return NotFound();
@@ -83,27 +84,32 @@ namespace WebApplication1.Controllers
         [Route("edit/{id?}")]
         public IActionResult Edit(GuestsViewModel model)
         {
-            var guest = new GuestsView()
-            {
-                FirstName = model.FirstName,
-                Id = model.Id,
-                SurName = model.SurName,
-                Partronymic = model.Partronymic,
-                Age = model.Age,
-                Relation = model.Relation,
-                Side = model.Side
-            };
+            if (model.FirstName == "Анна" && model.Partronymic == "Витальевна")
+                ModelState.AddModelError("","Не наш гость");
+           if(!ModelState.IsValid)
+                return View(model);
+ 
+           var guest = new GuestsView()
+                {
+                    FirstName = model.FirstName,
+                    Id = model.Id,
+                    SurName = model.SurName,
+                    Partronymic = model.Partronymic,
+                    Age = model.Age,
+                    Relation = model.Relation,
+                    Side = model.Side
+                };
 
-            if (guest.Id == 0)
-            {
-                _GuestsData.AddNew(guest);
-            }
-            else
-            {
-                _GuestsData.UpDate(guest);
-            }
+                if (guest.Id == 0)
+                {
+                    _GuestsData.AddNew(guest);
+                }
+                else
+                {
+                    _GuestsData.UpDate(guest);
+                }
 
-            return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index));       
         }
         #endregion
 
