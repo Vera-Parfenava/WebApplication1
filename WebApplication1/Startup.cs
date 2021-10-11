@@ -14,6 +14,8 @@ using WebApplication1.Implementation;
 using WebApplication1.Infrastructure;
 using WebApplication1.DAL;
 using Microsoft.EntityFrameworkCore;
+using WebApplication1.DAL.Context;
+using WebApplication1.Data;
 
 namespace WebApplication1
 {
@@ -40,7 +42,7 @@ namespace WebApplication1
             services.AddDbContext<WebStoreDB>(opt => 
                 opt.UseSqlServer(Configuration.GetConnectionString("SqlServer")));
 
-
+            services.AddTransient<WebApp1DBInitializer>();
 
             services.AddSingleton<IGuestsData, InMemoryGuestsData>();
             services.AddSingleton<IProductData, InMemoryProductData>();
