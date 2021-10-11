@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 
 
 
-namespace WebApplication1.Implementation
+namespace WebApplication1.Infrastructure.InMemory
 {
     ///<inheritdoc/>
     /// <summary>
