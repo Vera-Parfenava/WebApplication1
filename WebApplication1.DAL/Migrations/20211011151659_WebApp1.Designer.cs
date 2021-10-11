@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApplication1.DAL;
+using WebApplication1.DAL.Context;
 
 namespace WebApplication1.DAL.Migrations
 {

@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using WebApplication1.Domain;
-using WebApplication1.Infrastructure.Implementation;
+using WebApplication1.Infrastructure.Interfaces;
 using WebApplication1.ViewModel;
 
 

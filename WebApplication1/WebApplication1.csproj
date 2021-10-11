@@ -21,8 +21,4 @@
     <ProjectReference Include="..\WebApplication1.Domain\WebApplication1.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Infrastructure\InSQL\" />
-  </ItemGroup>
-
 </Project>
