@@ -1,17 +1,15 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using WebApplication1.Interfaces;
-using WebApplication1.Infrastructure.Implementation;
-using WebApplication1.Implementation;
-using WebApplication1.Infrastructure;
+using WebApplication1.Infrastructure.Interfaces;
+using WebApplication1.Infrastructure.InMemory;
+using Microsoft.EntityFrameworkCore;
+using WebApplication1.DAL.Context;
+using WebApplication1.Data;
+using WebApplication1.Infrastructure.InSQL;
 
 namespace WebApplication1
 {
@@ -35,8 +33,14 @@ namespace WebApplication1
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<WebStoreDB>(opt => 
+                opt.UseSqlServer(Configuration.GetConnectionString("SqlServer")));
+
+            services.AddTransient<WebApp1DBInitializer>();
+
             services.AddSingleton<IGuestsData, InMemoryGuestsData>();
-            services.AddSingleton<IProductData, InMemoryProductData>();
+            //services.AddSingleton<IProductData, InMemoryProductData>();
+            services.AddScoped<IProductData, SqlProductData>();
 
             //Add  a service for controller
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
@@ -53,9 +57,10 @@ namespace WebApplication1
                 app.UseBrowserLink();
             }
 
-           //app.UseStatusCodePagesWithReExecute("/Home/Status/{0}");
+           app.UseStatusCodePagesWithReExecute("/Home/status/{0}");
 
             //Add an extension for static files, since appsettings.json is a static file
+
             app.UseStaticFiles(); 
             app.UseRouting();
 

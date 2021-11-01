@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WebApplication1.Infrastructure.Implementation;
+using WebApplication1.Infrastructure.Interfaces;
 using WebApplication1.Infrastructure;
 using WebApplication1.Domain.Entities;
 using WebApplication1.Data;
@@ -11,7 +11,7 @@ using WebApplication1.Domain;
 
 
 
-namespace WebApplication1.Infrastructure
+namespace WebApplication1.Infrastructure.InMemory
 {
     public class InMemoryProductData: IProductData
     {

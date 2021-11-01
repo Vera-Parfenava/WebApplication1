@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using WebApplication1.Domain.Entities;
 using WebApplication1.Domain;
 
-namespace WebApplication1.Infrastructure.Implementation
+namespace WebApplication1.Infrastructure.Interfaces
 {
     public interface IProductData
     {
