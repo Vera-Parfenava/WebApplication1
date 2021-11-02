@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WebApplication1.Domain.Entities.Identity
 {
-    class Role:IdentityRole
+    public class Role:IdentityRole
     {
         public const string Administrators = "Administrators";
 
