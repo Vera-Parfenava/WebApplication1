@@ -97,6 +97,9 @@ namespace WebApplication1
             app.UseStaticFiles(); 
             app.UseRouting();
 
+            app.UseAuthentication();
+            app.UseAuthorization();
+
             app.UseWelcomePage("/welcome");
 
             app.UseEndpoints(endpoints =>
