@@ -10,6 +10,8 @@ using Microsoft.EntityFrameworkCore;
 using WebApplication1.DAL.Context;
 using WebApplication1.Data;
 using WebApplication1.Infrastructure.InSQL;
+using WebApplication1.Domain.Entities.Identity;
+using Microsoft.AspNetCore.Identity;
 
 namespace WebApplication1
 {
@@ -35,6 +37,37 @@ namespace WebApplication1
         {
             services.AddDbContext<WebStoreDB>(opt => 
                 opt.UseSqlServer(Configuration.GetConnectionString("SqlServer")));
+
+            services.AddIdentity<User, Role>()
+                .AddEntityFrameworkStores<WebStoreDB>()
+                .AddDefaultTokenProviders();
+
+            services.Configure<IdentityOptions>(opt =>
+            {
+#if DEBUG
+                opt.Password.RequireDigit = false;
+                opt.Password.RequireUppercase = false;
+                opt.Password.RequireLowercase = false;
+                opt.Password.RequireNonAlphanumeric = false;
+                opt.Password.RequiredLength = 3;
+                opt.Password.RequiredUniqueChars = 3;
+#endif
+                opt.User.RequireUniqueEmail = false;
+                opt.Lockout.AllowedForNewUsers = false;
+                opt.Lockout.MaxFailedAccessAttempts = 10;
+                opt.Lockout.DefaultLockoutTimeSpan = System.TimeSpan.FromMinutes(15);
+            });
+
+            services.ConfigureApplicationCookie(opt =>
+            {
+                opt.Cookie.Name = "GB.WebStore";
+                opt.Cookie.HttpOnly = true;
+                opt.ExpireTimeSpan = System.TimeSpan.FromDays(10);
+                opt.LoginPath = "/Account/Login";
+                opt.LogoutPath = "/Account/Logout";
+                opt.AccessDeniedPath = "/Account/AccessDenied";
+                opt.SlidingExpiration = true;
+            });
 
             services.AddTransient<WebApp1DBInitializer>();
 
