@@ -26,7 +26,7 @@ namespace WebApplication1.Data
             //var db_deleted = await _db.Database.EnsureDeletedAsync();
             //var dv_created= await _db.Database.EnsureCreatedAsync();
 
-            var pending_migrations = await _db.Database.GetPendingMigrationsAsync();
+            IEnumerable<string> pending_migrations = await _db.Database.GetPendingMigrationsAsync();
             var applied_migrations = await _db.Database.GetAppliedMigrationsAsync();
 
             if(pending_migrations.Any())

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,8 @@ namespace WebApplication1.Controllers
 
         public AccountController(UserManager<User> UserManager, SignInManager<User> SingInManager)
         {
-
+            _SingInManager = SingInManager;
+            _UserManager = UserManager;
         }
         #region Register
         public IActionResult Register() => View(new RegisterUserViewModel());
@@ -35,7 +37,6 @@ namespace WebApplication1.Controllers
             if (register_result.Succeeded)
             {
                 await _SingInManager.SignInAsync(user, false);
-
                 return RedirectToAction("Index", "Home");
             }
 
@@ -45,9 +46,33 @@ namespace WebApplication1.Controllers
             return View(Model);
         }
         #endregion
-        public IActionResult Login() => View();
-        public IActionResult Logout() => RedirectToAction("Index", "Home");
-        public IActionResult AccesDenied() => View();
+        #region Login
+        public IActionResult Login(string ReturnUrl) => View(new LoginViewModel { ReturnUrl = ReturnUrl });
 
+        [HttpPost, ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(LoginViewModel Model)
+        {
+            if (!ModelState.IsValid) return View(Model);
+
+            var login_result = await _SingInManager.PasswordSignInAsync(
+                Model.UserName,
+                Model.Password,
+                Model.RememberMe,
+                false);
+
+            if (login_result.Succeeded)
+            {
+                return LocalRedirect(Model.ReturnUrl ?? "/");
+            }
+            ModelState.AddModelError("", "Ошибка ввода имени пользователя или пароля");
+            return View(Model);
+        }
+        #endregion
+        public async Task<IActionResult> Logout()
+        {
+            await _SingInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
+        }
+        public IActionResult AccesDenied() => View();
     }
 }
