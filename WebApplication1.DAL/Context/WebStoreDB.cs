@@ -1,11 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using WebApplication1.Domain.Entities;
-
+using WebApplication1.Domain.Entities.Identity;
 
 namespace WebApplication1.DAL.Context
 {
-    public class WebStoreDB: DbContext
+    public class WebStoreDB: IdentityDbContext<User, Role, string>
     {
         public DbSet<Product> Products { get; set; }
         public DbSet<Section> Sections { get; set; }
